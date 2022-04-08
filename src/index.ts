@@ -23,7 +23,9 @@ async function run() {
       core.setFailed('no value found :(');
     }
   } catch (error) {
-    core.setFailed(error.message);
+    // https://www.typescriptlang.org/tsconfig#useUnknownInCatchVariables
+    if (error instanceof Error)
+      core.setFailed(error.message);
   }
 }
 

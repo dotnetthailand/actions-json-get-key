@@ -37,3 +37,5 @@ Get a nested property value with dot separated prop_path
 ...
 
 ```
+
+Thanks the original: https://github.com/notiz-dev/github-action-json-property
