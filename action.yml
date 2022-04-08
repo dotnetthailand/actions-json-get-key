@@ -1,13 +1,18 @@
-name: 'Get JSON Property'
-description: 'Simple GitHub Action to read a specified property from a JSON file.'
-author: 'notiz.dev'
+name: 'Get JSON by Key'
+description: 'Simple GitHub Action to read a specified key from a JSON file and output to file'
+author: 'Thada'
 inputs:
   path:
     description: 'path to json file'
+    required: true 
   prop_path:
     description: 'dot separated property key (e.g.: scripts.build)'
+    required: true 
+  output_path:
+    description: 'path to output file'
+    required: false
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
 branding:
   color: "yellow"

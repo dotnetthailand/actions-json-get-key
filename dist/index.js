@@ -46,12 +46,14 @@ const core = __importStar(__nccwpck_require__(186));
 const fs_1 = __importDefault(__nccwpck_require__(147));
 const util_1 = __importDefault(__nccwpck_require__(837));
 const readFileAsync = util_1.default.promisify(fs_1.default.readFile);
+const writeFileAsync = util_1.default.promisify(fs_1.default.writeFile);
 function getNestedObject(nestedObj, pathArr) {
     return pathArr.reduce((obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined), nestedObj);
 }
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const path = core.getInput('path');
+        const output_path = core.getInput('output_path');
         const prop = core.getInput('prop_path').split('.');
         try {
             const buffer = yield readFileAsync(path);
@@ -59,6 +61,9 @@ function run() {
             const nestedProp = getNestedObject(json, prop);
             if (nestedProp) {
                 core.setOutput('prop', nestedProp);
+                if (output_path) {
+                    yield writeFileAsync(output_path, nestedProp);
+                }
             }
             else {
                 core.setFailed('no value found :(');
@@ -68,7 +73,6 @@ function run() {
             // https://www.typescriptlang.org/tsconfig#useUnknownInCatchVariables
             if (error instanceof Error)
                 core.setFailed(error.message);
-            console.log("efef");
         }
     });
 }

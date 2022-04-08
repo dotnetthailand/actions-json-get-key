@@ -2,6 +2,7 @@ import * as core from '@actions/core';
 import fs from 'fs';
 import util from 'util';
 const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
 function getNestedObject(nestedObj: any, pathArr: string[]) {
   return pathArr.reduce(
@@ -12,6 +13,7 @@ function getNestedObject(nestedObj: any, pathArr: string[]) {
 
 async function run() {
   const path: string = core.getInput('path');
+  const output_path: string | undefined = core.getInput('output_path');
   const prop: string[] = core.getInput('prop_path').split('.');
   try {
     const buffer = await readFileAsync(path);
@@ -19,6 +21,9 @@ async function run() {
     const nestedProp = getNestedObject(json, prop);
     if (nestedProp) {
       core.setOutput('prop', nestedProp);
+      if(output_path){
+        await writeFileAsync(output_path, nestedProp);
+      }
     } else {
       core.setFailed('no value found :(');
     }
