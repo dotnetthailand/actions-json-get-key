@@ -1,5 +1,5 @@
 
-# github-action-json-property
+# Get JSON by Key
 
 ![Banner image showing successfully executed GitHub Action](banner.png)
 
@@ -13,7 +13,7 @@ Get a specified property of a json file.
 ...
 - name: get version
   id: version
-  uses: dotnetthailand/actions-json-get-key@v1
+  uses: mildronize/actions-json-get-key@v1
   with: 
     path: 'package.json'
     prop_path: 'version'
@@ -29,7 +29,7 @@ Get a specified property of a json file.
 ...
 - name: get nested property
   id: format_script
-  uses: dotnetthailand/actions-json-get-key@v1
+  uses: mildronize/actions-json-get-key@v1
   with: 
     path: 'package.json'
     prop_path: 'scripts.format'
@@ -44,7 +44,7 @@ Get a specified property of a json file.
 ...
 - name: get nested property
   id: format_script
-  uses: dotnetthailand/actions-json-get-key@v1
+  uses: mildronize/actions-json-get-key@v1
   with: 
     path: 'package.json'
     prop_path: 'scripts.format'
